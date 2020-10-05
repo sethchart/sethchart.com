@@ -58,6 +58,10 @@ It was time for a course correction. I needed some time to reevaluate my carer c
 
 Having spent my twenties in school and the last three years teaching, taking a year off to regroup was not a financially viable option. Lucky for me, my wife was moving on from her position as a database manager to bigger and better things. She recommended me to her former employer as a replacement. I didn't know much of anything about managing a database, but I learn fast and my wife writes fantastic documentation. I was a little nervous about stepping into the role, but it paid a little better than my teaching job, and I needed an escape hatch.
 
+I feel that I have been reasonably successful in my role as database manager. I have picked up the necessary skills quickly and spearheaded a few interesting projects. For example, I project managed the design and implementation of a new volunteer management tool that replaced a proprietary tool with an integrated module for our CRM. 
+
+I have enjoyed being exposed to the intricacies and challenges of maintaining production IT infrastructure. 
+
 I have been working as a database manager for about fifteen months. The change of pace has done me a world of good and I could not be more grateful for the opportunity that came just in time. Being a database manager has also exposed me to quite a few new areas of interest.     
 
 ### Data Science
