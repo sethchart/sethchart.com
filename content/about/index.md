@@ -62,7 +62,7 @@ I feel that I have been reasonably successful in my role as database manager. I 
 
 I have enjoyed being exposed to the intricacies and challenges of maintaining production IT infrastructure. 
 
-I have been working as a database manager for about fifteen months. The change of pace has done me a world of good and I could not be more grateful for the opportunity that came just in time. Being a database manager has also exposed me to quite a few new areas of interest.     
+I have been working as a database manager for about fifteen months. The change of pace has done me a world of good and I could not be more grateful for the opportunity that came just in time.
 
 ### Data Science
 
