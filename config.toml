@@ -51,7 +51,7 @@ copyright = "Seth Chart© {year}"
   identifier = "about"
   name = "about"
   title = "About"
-  url = "/about"
+  url = "/posts/0"
 
 [[menu.main]]
   identifier = "blog"
