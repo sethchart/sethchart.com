@@ -3,12 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://sethchart.com/0/</loc>
-    <lastmod>2020-08-31T00:00:00+00:00</lastmod>
+    <loc>https://sethchart.com/</loc>
+    <lastmod>2020-10-16T14:45:12-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://sethchart.com/</loc>
+    <loc>https://sethchart.com/posts/0/</loc>
+    <lastmod>2020-10-16T14:45:12-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sethchart.com/posts/</loc>
+    <lastmod>2020-10-16T14:45:12-04:00</lastmod>
   </url>
   
   <url>
