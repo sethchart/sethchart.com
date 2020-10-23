@@ -1,11 +1,11 @@
 ---
-title: "Data Engineering for a Movie Market Analysis"
-date: 2020-10-16T15:00:37-04:00
+title: "Data Engineering or: How I Learned to Stop Worrying and Love the Database"
+date: 2020-10-23
 slug: ""
 description: ""
-keywords: []
-raft: true
-tags: []
+keywords: [Data Science, Database]
+draft: true
+tags: [Data Science, Database]
 math: false
 toc: false
 ---
