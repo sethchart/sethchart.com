@@ -1,11 +1,11 @@
 ---
 title: "About Me"
-date: 2020-10-16T14:45:12-04:00
+date: 2020-10-23
 slug: ""
 description: "Biography"
 keywords: [Data Science, Mathematics, Database, Python, Biography]
 draft: false
-tags: []
+tags: [Biography]
 math: false
 toc: false
 ---

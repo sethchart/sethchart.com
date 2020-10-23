@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Seth Chart© {year}</copyright>
-    <lastBuildDate>Fri, 16 Oct 2020 14:45:12 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://sethchart.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,11 +15,21 @@
     <item>
       <title>About Me</title>
       <link>https://sethchart.com/posts/0/</link>
-      <pubDate>Fri, 16 Oct 2020 14:45:12 -0400</pubDate>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://sethchart.com/posts/0/</guid>
       <description>A Long Story Shortened My name is Seth Chart. I am, in order of decreasing experience, a son, brother, mathematician, teacher, husband, feline personal assistant, database manager, python programmer, web development hobbyist, data scientist, and blogger.
 Biography The Early Years I grew up in Utah. My Father is a Fisheries Biologist who has spent his career working to protect endangered fish species in the western United States. Most of my early memories were formed when we lived in Moab, Utah, where he managed a research field station.</description>
+    </item>
+    
+    <item>
+      <title>Data Engineering for a Movie Market Analysis</title>
+      <link>https://sethchart.com/posts/1/</link>
+      <pubDate>Fri, 16 Oct 2020 15:00:37 -0400</pubDate>
+      
+      <guid>https://sethchart.com/posts/1/</guid>
+      <description>The Problem For my first project in the Flatiron data science bootcamp, I was asked to do an explore a data set with information about movies. The goal was to clean and summarise the data. You can see my git hub repository here.
+We were provided with data that was organized as a folder full of spreadsheets that contained data that had been scraped from several different online resources. As I started work on the project I noticed that I was spending a huge amount of time cleaning data, combining data from multiple sources, cleaning the combined data, and whittling down the resulting data so that I could produce a particular summary of the data.</description>
     </item>
     
   </channel>
