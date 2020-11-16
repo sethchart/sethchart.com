@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Seth Chart© {year}</copyright>
-    <lastBuildDate>Fri, 23 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2020 20:52:31 -0500</lastBuildDate>
     
 	<atom:link href="https://sethchart.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Pump it Up: Data Mining the Water Table</title>
+      <link>https://sethchart.com/posts/1/</link>
+      <pubDate>Fri, 06 Nov 2020 20:52:31 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/1/</guid>
+      <description>Project Description In this post, I will tell you about building my submission to the Pump it Up: Data Mining the Water Table competition hosted by DrivenData. The competition problem uses data about water pumps in Tanzania collected by a partnership between Taarifa and the United Republic of Tanzania Ministry of Water to predict if they are currently in need of repair. Specifically, the goal is to classify a water pump as &amp;lsquo;functional&amp;rsquo;, &amp;lsquo;functional needs repair&amp;rsquo;, or &amp;lsquo;non functional&amp;rsquo; given the available data.</description>
+    </item>
     
     <item>
       <title>About Me</title>
