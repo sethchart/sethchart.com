@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Seth Chart© {year}</copyright>
-    <lastBuildDate>Fri, 06 Nov 2020 20:52:31 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 23 Dec 2020 17:28:40 -0500</lastBuildDate>
     
 	<atom:link href="https://sethchart.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Demystifying ARMA Models</title>
+      <link>https://sethchart.com/posts/2/</link>
+      <pubDate>Wed, 23 Dec 2020 17:28:40 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/2/</guid>
+      <description>Last week, I finished a project where I identified the five zip codes, in the city of Baltimore, where an individual would expect the highest return on investment if they bought a house, lived in it for two years and then sold it and moved away. You can check out my github repository for the project here. I used Seasonal AutoRegressive Integrated Moving Average (SARIMA) models to forecast house prices based on historical data that I collected from Zillow.</description>
+    </item>
     
     <item>
       <title>Pump it Up: Data Mining the Water Table</title>
