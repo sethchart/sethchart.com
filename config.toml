@@ -59,11 +59,11 @@ copyright = "Seth Chart© {year}"
   title = "Blog"
   url = "/posts"
 
-#[[menu.main]]
-#  identifier = "resume"
-#  name = "resume"
-#  title = "Resume"
-#  url = "/resume"
+[[menu.main]]
+  identifier = "resume"
+  name = "resume"
+  title = "Resume"
+  url = "/resume/Resume-SethChart.pdf"
 
 [[menu.main]]
   identifier = "home"
