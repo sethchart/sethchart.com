@@ -119,7 +119,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 ```
 
 #### Data Validation
-I experimented with both manual and automated feature selection, hoIver neither approach improved model performance. Initially, I had issues with mixed data types in both the `public_meeting` and `permit` columns. The function below converts all categorical variables to strings to eliminate thoes errors. 
+I experimented with both manual and automated feature selection, however neither approach improved model performance. Initially, I had issues with mixed data types in both the `public_meeting` and `permit` columns. The function below converts all categorical variables to strings to eliminate those errors. 
 
 
 ```python
@@ -132,7 +132,7 @@ CategoricalTypeConverter = FunctionTransformer(
 ```
 
 #### Classify Variables
-I will need to pre-process the data in preparation for classification. Pre-processing is different for categorical and numerical variables. In order to implement different pre-pricessing flows, I must first classify all of the variables as categorical or numerical. The function below separates columns into these two classes and excludes any variables that will be dropped from the model.
+I will need to pre-process the data in preparation for classification. Pre-processing is different for categorical and numerical variables. In order to implement different pre-processing flows, I must first classify all of the variables as categorical or numerical. The function below separates columns into these two classes and excludes any variables that will be dropped from the model.
 
 
 ```python

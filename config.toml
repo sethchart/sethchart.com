@@ -63,7 +63,7 @@ copyright = "Seth Chart© {year}"
   identifier = "resume"
   name = "resume"
   title = "Resume"
-  url = "/resume/Resume-SethChart.pdf"
+  url = "/resume-sethchart.pdf"
 
 [[menu.main]]
   identifier = "home"
