@@ -13,9 +13,9 @@ toc: false
 ## What You Will Learn
 
 Do you want to do some natural language processing on job postings and need data?
-I did about a month ago when I was starting my capstone [project](https://github.com/sethchart/JobDash) for my Data Science bootcamp at Flatiron school.
+That was my situation about a month ago when I was starting my capstone [project](https://github.com/sethchart/DataJobs) for my Data Science bootcamp at Flatiron school.
 I found that [careerjet.com](https://careerjet.com) had fairly straightforward web design and over three million job postings in the United States, a great candidate for web scraping! In this post, I will describe my approach to scraping careerjet.com and outline a few approaches that did not workout for me.
-Hopefully, I can jump-start your NLP project on on job postings by letting you skip a few of my missteps.
+Hopefully, I can jump-start your NLP project on job postings by letting you skip a few of my missteps.
 
 ## My Approach
 After trying a few other approaches I decided to use [Selenium](https://pypi.org/project/selenium/) to interact with careerjet.com.
@@ -41,9 +41,11 @@ Below I give a quick example of locating the next button using developer tools. 
 ### Locating an element
 
 The trickiest element to access was the next button.
-After, some experimentation I found that is was best to first locate the navigation bar and then locate the next button inside the navigation bar. The benefit of this approach is that the navigation bar is present even when the site does not have a next page to serve. Locating the navigation bar and then checking for the next button makes it easier to manage the no next page issue when we automate.
+After, some experimentation I found that is was best to first locate the navigation bar and then locate the next button inside the navigation bar.
+The benefit of this approach is that the navigation bar is present even when the site does not have a next page to serve.
+Locating the navigation bar and then checking for the next button makes it easier to handle the case when no next page is available.
 
-To locate an element first open developer tools on the page in question (press F12) then activate the selector tool (pressCtrl + Shift + C) and hover over the element you wish to locate.
+To locate an element first open developer tools on the page in question (press F12) then activate the selector tool (press Ctrl + Shift + C) and hover over the element you wish to locate.
 
 #### Locating the Navigation Bar
 
@@ -60,7 +62,7 @@ In the screenshot below you can see that the next page button is a `button` elem
 ## Implementation
 
 To automate the web scraping workflow I decided to design a class that wraps a Selenium web driver and provides methods for each of the steps in the workflow.
-Then I can simply instantiate a object and use its methods to execute the workflow in a simple script.
+Then, I can simply instantiate a object and use its methods to execute the workflow in a simple script.
 
 ### Step 1
 
@@ -172,8 +174,8 @@ def next_page(self):
 ```
 ## Other Approaches
 
-Before designing the approach that we outlined above we tried two other approaches to web scraping.
- 1. Using the careerjet api to request job descriptions.
+Before I selected the approach above I tried two other approaches for scraping careerjet.
+ 1. Using the careerjet API to request job descriptions.
  2. Using http requests to pull pages without launching a browser.
 
 The primary issue with Approach 1 was an undocumented rate limit on the API that made scraping more than a few job postings infeasible.
@@ -181,9 +183,9 @@ If you just need to pull a few postings or you can pull postings infrequently, I
 I ran into issues with the [official API](https://github.com/careerjet/careerjet-api-client-python) because I am using Python 3.6, however this [unofficial fork](https://github.com/davebulaval/careerjet-api) of the python API was very easy to use.
 
 My issue with Approach 2 was essentially that I could not figure out how to access more than 2,000 records.
-Very roughly, the approach takes advantage of the fact that careerjet allows the user to specify which page of search results through a query parameter in the url.
-I used the `requests` [library](https://pypi.org/project/requests/) to pull each page of results and then used BeutifulSoup to get urls for each job listing on the result page.
-This worded great and was much easier to implement than my final approach, but each page of results has twenty job listings and careerjet only allows access to one hundred pages of search results through the url page parameter.
+Very roughly, the approach takes advantage of the fact that careerjet allows the user to specify which page of search results they want through a query parameter in the url.
+I used the `requests` [library](https://pypi.org/project/requests/) to pull each page of results and then used BeautifulSoup to get urls for each job listing on the result page.
+This worked great and was much easier to implement than my final approach, but each page of results has twenty job listings and careerjet only allows access to one hundred pages of search results through the url page parameter, so I was limited to 2,000 job postings.
 For my use case 2,000 postings was not enough data.
 If you are interested in a smaller batch of data, or you have a scheme for combining multiple searches, then I would recommend trying out this approach before resorting to the approach that I have described above.
 
@@ -193,3 +195,5 @@ Web scraping can be tricky, particularly when we need to resort to automating br
 I found that by encapsulating all of my browser interaction in a class, I was able to incorporate this style of web scraping into scripts seamlessly without needing to worry to much about particulars of what was happening in the browser.
 The guiding principal for designing this class was simple.
 I worked through the workflow that I wanted to achieve in the browser manually and built a method for each manual action.
+
+If you would like to checkout the source code you can find it [here](https://github.com/sethchart/DataJobs/blob/main/code/careerjet.py).
