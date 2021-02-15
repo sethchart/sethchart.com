@@ -4,7 +4,7 @@ date: 2021-01-26T08:53:31-05:00
 slug: ""
 description: "Building an effective python web scraper for careerjet.com"
 keywords: [Web Scraping, Data Collection, Project, OOP]
-draft: true
+draft: false
 tags: [Web Scraping, Data Collection, Project, OOP]
 math: false
 toc: false
