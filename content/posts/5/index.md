@@ -1,8 +1,8 @@
 ---
 title: "Adding Lemmatization to CountVectorizer Without Making a Mess"
 date: 2021-02-21T12:57:33-05:00
-slug: "We write a custom tokenizer for scikit-learns CountVectorizer that implements lemmatization with parts of speech tagging." 
-description: ""
+slug: "" 
+description: "We write a custom tokenizer for scikit-learns CountVectorizer that implements lemmatization with parts of speech tagging."
 keywords: ["scikit-learn", "NLTK", "Lemmatization", "CountVectorizer", "Natural Language Processing", "NLP", "Data Science", "Data Cleaning"]
 draft: false
 tags: ["DataJobs", "Data Cleaning", "NLP"]
