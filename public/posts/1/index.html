@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Pump it Up: Data Mining the Water Table | Seth Chart</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="Project write up.">
+  <meta name="keywords" content="Data Science , Classification">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pump it Up: Data Mining the Water Table" />
+  <meta name="twitter:description" content="Project write up."
+  />
+  <meta name="twitter:site" content="@https://twitter.com/sethchart" />
+  <meta name="twitter:creator" content="@https://twitter.com/sethchart" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+
+  
+  
+    
+ 
+  
+  
+  
+  
+  
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/post.min.679ea46872c2b319c5ae942c601a7330924fd57451c89d621d6cb129c870c2a8.css" integrity="sha256-Z56kaHLCsxnFrpQsYBpzMJJP1XRRyJ1iHWyxKchwwqg="/>
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/custom.min.d4f5ff97123043c4601a563af6d280aa37573addb6592364613a791e1cc035d2.css" integrity="sha256-1PX/lxIwQ8RgGlY69tKAqjdXOt22WSNkYTp5HhzANdI="/>
+  
+  
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    { 
+      "@context": "http://schema.org", 
+      "@type": "WebSite", 
+      "url": "https:\/\/sethchart.com\/posts\/1\/",
+      "name": "Pump it Up: Data Mining the Water Table",
+      "author": {
+        "@type": "Person",
+        "name": ""
+      },
+      "description": "Project write up."
+    }
+  
+  </script>
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+    
+    
+      <li>
+        <a  href="/posts/0">about</a>
+      </li>
+    
+      <li>
+        <a  class="active"
+         href="/posts">blog</a>
+      </li>
+    
+      <li>
+        <a  href="/">home</a>
+      </li>
+    
+      <li>
+        <a  href="/resume-sethchart.pdf">resume</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+    
+
+    <div class="flex-wrapper">
+      <div class="post__container">
+        <div class="post">
+          <header class="post__header">
+            <h1 id="post__title">Pump it Up: Data Mining the Water Table</h1>
+            <time datetime="2020-11-06 20:52:31 -0500 EST" class="post__date"
+            >2020-11-06</time>
+          </header>
+          <article class="post__content">
+              
+<h2 id="project-description">Project Description<a class="anchor" href="#project-description">#</a></h2>
+<p>In this post, I will tell you about building my submission to the <a href="https://www.drivendata.org/competitions/7/pump-it-up-data-mining-the-water-table/">Pump it Up: Data Mining the Water Table</a> competition hosted by <a href="https://www.drivendata.org/">DrivenData</a>. The competition problem uses data about water pumps in Tanzania collected by a partnership between <a href="http://taarifa.org/">Taarifa</a> and the <a href="https://www.maji.go.tz/">United Republic of Tanzania Ministry of Water</a> to predict if they are currently in need of repair. Specifically, the goal is to classify a water pump as &lsquo;functional&rsquo;, &lsquo;functional needs repair&rsquo;, or &lsquo;non functional&rsquo; given the available data. By better understanding what factors predict issues with water pumps, we hope to improve access to potable water in Tanzania and reduce operational costs associated with maintaining water infrastructure.</p>
+<p>For the purposes of the competition, the model is assessed in terms of the classification rate, also commonly called <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision">accuracy</a>.
+The classification rate is a number between zero and one with zero indicating that all prediction were wrong, one indicating all predictions were correct, and 0.7 indicating that, on average, seven out of ten predictions are correct.</p>
+<p>My model produced an accuracy score of 0.8227. As of the time of writing, the best reported score for the competition is 0.8294 and my model ranks 385 out of 10,307 submissions.</p>
+<h2 id="main-takeaway">Main Takeaway<a class="anchor" href="#main-takeaway">#</a></h2>
+<p>I was surprised by the performance that I was able to achieve without any feature engineering or manual data cleaning. This model is an exercise in applying off-the-shelf tools with minimal effort to great effect.</p>
+<h2 id="modeling-approach">Modeling Approach<a class="anchor" href="#modeling-approach">#</a></h2>
+<p>Initial experiments with unoptimized models showed that the <a href="https://xgboost.readthedocs.io/en/latest/python/index.html">XGBClassifier</a> performed best on this data.
+With this in mind, I wanted to build an <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">sklearn pipeline</a> to implement preprocessing and model fitting and then use an <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html">sklearn grid search</a> to select the best hyper-parameters for the model and perform five-fold <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">cross validation</a>.</p>
+<p>If you would like to build the model yourself, you can access this project at my <a href="https://github.com/sethchart/Pump-it-Up-Data-Mining-the-Water-Table">github repo</a>.</p>
+<h3 id="initial-setup">Initial Setup<a class="anchor" href="#initial-setup">#</a></h3>
+<p>My goal in this project was to use as many off-the-shelf tools as possible and avoid writing unnecessary custom code to achieve data processing or modeling.</p>
+<h4 id="import-required-modules">Import Required Modules</h4>
+<p>Below I collect the tools that I will use to build the model. After initial exploratory modeling I found that <code>XGBClassifier</code> provided the best performance, measured in terms of model accuracy.</p>
+<pre><code class="language-python">#Basics
+import pandas as pd
+import numpy as np
+
+#Plotting
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_context('notebook')
+
+#Train Test Split
+from sklearn.model_selection import train_test_split
+
+# Imputer
+from sklearn.impute import SimpleImputer
+
+# Preprocessing
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import (
+    OneHotEncoder, 
+    StandardScaler, 
+    FunctionTransformer)
+
+# Classifiers
+from xgboost import XGBClassifier
+from sklearn.multiclass import OneVsRestClassifier
+
+#Pipeline
+from sklearn.pipeline import Pipeline
+
+#Grid Search
+from sklearn.model_selection import GridSearchCV
+
+# Model evaluation
+from sklearn.metrics import plot_confusion_matrix
+</code></pre>
+<h4 id="set-random-state">Set Random State</h4>
+<p>There are a few steps below where random processes require a seed. For reproducibility, I set a default random state below.</p>
+<pre><code class="language-python">random_state = 42
+</code></pre>
+<h4 id="select-columns-to-drop-from-the-model">Select Columns to Drop from the Model</h4>
+<p>Provide a list of variables that should be dropped from the model. I have not observed any improvement in model performance from dropping data, measured in terms of accuracy. Training time is obviously improved by dropping columns but there seems to be a small price to pay in terms of accuracy for reducing the number of available features.</p>
+<pre><code class="language-python">drop_cols = []
+</code></pre>
+<h4 id="import-data">Import Data</h4>
+<p>Because of the submission format requirements for the competition, it is vital that I retain the index column through out modeling so that I are able to produce predictions that can be validated using the competition&rsquo;s validation data.</p>
+<pre><code class="language-python">features = pd.read_csv(
+    filepath_or_buffer='../data/training_features.csv', 
+    index_col='id'
+)
+targets = pd.read_csv(
+    filepath_or_buffer='../data/training_labels.csv', 
+    ndex_col='id'
+                     )
+df = features.join(targets, how='left')
+X = df.drop('status_group', axis=1)
+y = df['status_group']
+</code></pre>
+<h4 id="make-test-train-split">Make Test Train Split</h4>
+<p>For the purposes of model tuning I hold 10% of the data out for local testing.</p>
+<pre><code class="language-python">X_train, X_test, y_train, y_test = train_test_split(
+    X, 
+    y, 
+    test_size=0.1, 
+    random_state=random_state
+)
+</code></pre>
+<h4 id="data-validation">Data Validation</h4>
+<p>I experimented with both manual and automated feature selection, however neither approach improved model performance. Initially, I had issues with mixed data types in both the <code>public_meeting</code> and <code>permit</code> columns. The function below converts all categorical variables to strings to eliminate those errors.</p>
+<pre><code class="language-python">def convert_categorical_to_string(data):
+    return pd.DataFrame(data).astype(str)
+
+CategoricalTypeConverter = FunctionTransformer(
+    convert_categorical_to_string
+)
+</code></pre>
+<h4 id="classify-variables">Classify Variables</h4>
+<p>I will need to pre-process the data in preparation for classification. Pre-processing is different for categorical and numerical variables. In order to implement different pre-processing flows, I must first classify all of the variables as categorical or numerical. The function below separates columns into these two classes and excludes any variables that will be dropped from the model.</p>
+<pre><code class="language-python">def classify_columns(df, drop_cols):
+    &quot;&quot;&quot;Takes a dataframe and a list of columns to 
+    drop and returns:
+        - cat_cols: A list of categorical columns.
+        - num_cols: A list of numerical columns.
+    &quot;&quot;&quot;
+    cols = df.columns
+    keep_cols = [col for col in cols if col not in drop_cols]
+    cat_cols = []
+    num_cols = []
+    for col in keep_cols:
+        if df[col].dtype == object:
+            cat_cols.append(col)
+        else:
+            num_cols.append(col)
+    return cat_cols, num_cols
+</code></pre>
+<pre><code class="language-python">cat_cols, num_cols = classify_columns(X_train, drop_cols)
+</code></pre>
+<h3 id="build-preprocessor">Build Preprocessor<a class="anchor" href="#build-preprocessor">#</a></h3>
+<p>Below I build a preprocessing step for the pipeline which handles all data processing.</p>
+<h4 id="categorical-preprocessing-pipeline">Categorical Preprocessing Pipeline</h4>
+<p>The pipeline below executes the following three steps for all of the categorical data.</p>
+<ol>
+<li>Convert all values in categorical columns to strings. This avoids data type errors in the following steps.</li>
+<li>Fill all missing values with the string <code>missing</code>.</li>
+<li>One-hot encode all categorical variables. Because this data contains categorical variables with many possible values, it is possible to encounter values in testing data that was not present in the training data. For this reason, I need to set <code>handel_unknown</code> to <code>ignore</code> so that the encoder will simply ignore unknown values in testing data.</li>
+</ol>
+<pre><code class="language-python">categorical_pipeline = Pipeline(
+    steps=[
+        (
+            'typeConverter', 
+            CategoricalTypeConverter
+        ),
+        (
+            'imputer', 
+            SimpleImputer(
+                strategy='constant', 
+                fill_value='missing'
+            )
+        ),
+        (
+            'standardizer', 
+            OneHotEncoder(
+                handle_unknown='ignore',
+                dtype=float
+            )
+        )
+    ]
+)
+</code></pre>
+<h4 id="numerical-preprocessing-pipeline">Numerical Preprocessing Pipeline</h4>
+<p>The pipeline below executes two steps:</p>
+<ol>
+<li>Imputes missing values in any numerical column with the median value from that column.</li>
+<li>Scales each variable to have mean zero and standard deviation one.</li>
+</ol>
+<pre><code class="language-python">numerical_pipeline = Pipeline(
+    steps=[
+        (
+            'imputer', 
+            SimpleImputer(
+                strategy='median'
+            )
+        ),
+        (
+            'standardizer', 
+            StandardScaler()
+        )
+    ]
+)
+</code></pre>
+<h4 id="preprocessing-pipeline">Preprocessing Pipeline</h4>
+<p>The column transformer below implements each of the three possible pre-processing behaviors.</p>
+<ol>
+<li>Apply the categorical pipeline.</li>
+<li>Apply the numerical pipeline.</li>
+<li>Drop the specified columns.
+The if-then statement below ensures that the drop processor is only implemented if there are columns to drop. This is needed since passing an empty <code>drop_col</code> list throws an error.</li>
+</ol>
+<pre><code class="language-python">if len(drop_cols) &gt; 0:
+    preprocessor = ColumnTransformer(
+        transformers=[
+            (
+                'numericalPreprocessor', 
+                numerical_pipeline, 
+                num_cols
+            ),
+            (
+                'categoricalPreprocessor', 
+                categorical_pipeline, 
+                cat_cols
+            ),
+            (
+                'dropPreprocessor', 
+                'drop', 
+                drop_cols
+            )
+        ]
+    )
+else:
+    preprocessor = ColumnTransformer(
+        transformers=[
+            (
+                'numericalPreprocessor', 
+                numerical_pipeline, 
+                num_cols
+            ),
+            (
+                'categoricalPreprocessor', 
+                categorical_pipeline, 
+                cat_cols
+            )
+        ]
+    )
+</code></pre>
+<h3 id="build-model-pipeline">Build Model Pipeline<a class="anchor" href="#build-model-pipeline">#</a></h3>
+<p>Below I build the main pipeline which executes two steps.</p>
+<ol>
+<li>Apply preprocessing to the raw data.</li>
+<li>Fit a one vs rest classifier to the processed data using an eXtreme Gradient Boosted forest model.</li>
+</ol>
+<pre><code class="language-python">pipeline = Pipeline(
+    steps=[
+        (
+            'preprocessor', 
+            preprocessor
+        ),
+        (
+            'classifier', 
+            OneVsRestClassifier(
+                estimator='passthrough'
+            )
+        )
+    ]
+)
+</code></pre>
+<h3 id="building-parameter-grid">Building Parameter Grid<a class="anchor" href="#building-parameter-grid">#</a></h3>
+<p>Below I define a grid of hyper-parameters for the pipeline that will be tested in a grid search below.</p>
+<pre><code class="language-python">parameter_grid = [
+    {
+        'classifier__estimator': [
+            XGBClassifier()
+        ],
+        'classifier__estimator__max_depth': [
+            5, 10, 15, 20
+        ],
+        'classifier__estimator__n_estimators': [
+            100, 150, 200, 250
+        ]
+    }
+]
+</code></pre>
+<h3 id="instantiate-grid-search">Instantiate Grid Search<a class="anchor" href="#instantiate-grid-search">#</a></h3>
+<p>Below I instantiate a grid search object which will fit the pipeline for every combination of the parameters defined above. Since the competition uses accuracy as it&rsquo;s measure of model quality, I sill evaluate model performance in terms of accuracy. For each parameter combination, the grid search will also execute five-fold cross validation.</p>
+<p>In order to maximize performance, I will fit the grid search on the full provided training data set and select the best hyper-parameters based on the results of cross validation. For the purposes of local model evaluation, I will then refit the best model on the local training data and use the local testing data to produce a confusion matrix.</p>
+<pre><code class="language-python">grid_search = GridSearchCV(
+    estimator=pipeline, 
+    param_grid=parameter_grid, 
+    scoring='accuracy', 
+    cv=5, 
+    verbose=2, 
+    n_jobs=-2,
+    refit=True
+)
+</code></pre>
+<h3 id="fit-grid-search">Fit Grid Search<a class="anchor" href="#fit-grid-search">#</a></h3>
+<p>Below I fit the grid search on the full training set and select the best model hyper-parameters. This step takes an Extremely long time to run.</p>
+<pre><code class="language-python">grid_search.fit(
+    X, y
+)
+model = grid_search.best_estimator_
+</code></pre>
+<h3 id="display-results-of-grid-search">Display Results of Grid Search<a class="anchor" href="#display-results-of-grid-search">#</a></h3>
+<p>Below I display the results of the grid search. I pay particular attention to <code>std_test_score</code> which will become larger if the model is over-fit.</p>
+<pre><code class="language-python">grid_search_results = pd.DataFrame(
+    grid_search.cv_results_
+)
+grid_search_results.to_csv(
+    '../reports/grid_search_results.csv'
+)
+</code></pre>
+<pre><code class="language-python">grid_search_results
+</code></pre>
+<h4 id="plotting-model-accuracy">Plotting Model Accuracy</h4>
+<pre><code class="language-python">fig, ax = plt.subplots()
+fig.set_figheight(6)
+fig.set_figwidth(8)
+sns.lineplot(
+    x='param_classifier__estimator__max_depth',
+    y='mean_test_score', 
+    hue='param_classifier__estimator__n_estimators',
+    data=grid_search_results,
+    ax=ax
+)
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(
+    handles=handles[1:], 
+    labels=labels[1:], 
+    title=&quot;Number of Estimators&quot;
+);
+ax.set_xlabel(
+    'Max Depth'
+);
+ax.set_ylabel(
+    'Mean Test Score'
+);
+ax.set_title(
+    'XGBClassifier Model Accuracy'
+);
+fig.savefig(
+    '../images/Model_Accuracy.png', 
+    bbox_inches='tight'
+)
+</code></pre>
+<p><img src="Model_Accuracy.png" alt="Model Accuracy Plot"></p>
+<h4 id="plotting-fit-time">Plotting Fit Time</h4>
+<pre><code class="language-python">fig, ax = plt.subplots()
+fig.set_figheight(6)
+fig.set_figwidth(8)
+sns.lineplot(
+    x='param_classifier__estimator__max_depth',
+    y='mean_fit_time', 
+    hue='param_classifier__estimator__n_estimators',
+    data=grid_search_results,
+    ax=ax
+)
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(
+    handles=handles[1:],
+    labels=labels[1:], 
+    title=&quot;Number of Estimators&quot;
+);
+ax.set_xlabel(
+    'Max Depth'
+);
+ax.set_ylabel(
+    'Mean Fit Time (sec)'
+);
+ax.set_title(
+    'XGBClassifier Model Fit Time'
+);
+fig.savefig(
+    '../images/Model_Fit_Time.png', 
+    bbox_inches='tight'
+)
+</code></pre>
+<p><img src="Model_Fit_Time.png" alt="Model Fit Time Plot"></p>
+<h3 id="predict-on-validation-data">Predict on Validation Data<a class="anchor" href="#predict-on-validation-data">#</a></h3>
+<p>Below I import the testing data provided by the competition. To maximize performance I refit the model on the full training data set. Predictions are formatted and saved to CSV for submission.</p>
+<pre><code class="language-python">X_validate = pd.read_csv(
+    '../data/testing_features.csv', 
+    index_col='id'
+)
+y_validate = model.predict(
+    X_validate
+)
+df_predictions = pd.DataFrame(
+    y_validate, 
+    index=X_validate.index, 
+    columns=['status_group']
+)
+df_predictions.to_csv(
+    '../predictions/final_model.csv'
+)
+</code></pre>
+<h3 id="produce-confusion-matrix">Produce Confusion Matrix<a class="anchor" href="#produce-confusion-matrix">#</a></h3>
+<p>Below I fit the model on the local training data and produce a confusion matrix using the local test data. This provides a reasonable indication of how the model performs. Because the model needs to be fit before producing the matrix, this step will take a long time to run.</p>
+<h4 id="refitting-model-on-local-training-set">Refitting Model on Local Training Set</h4>
+<pre><code class="language-python">model.fit(
+    X_train, 
+    y_train
+)
+</code></pre>
+<h4 id="computing-confusion-matrix-on-local-testing-set">Computing Confusion Matrix on Local Testing Set</h4>
+<pre><code class="language-python">fig, ax = plt.subplots()
+fig.set_figheight(8)
+fig.set_figwidth(8)
+plot_confusion_matrix(
+    model, X_test, 
+    y_test, 
+    ax=ax, 
+    normalize='true', 
+    include_values=True
+)
+fig.savefig(
+    '../images/Confusion_Matrix.png', 
+    bbox_inches='tight'
+)
+</code></pre>
+<p><img src="Confusion_Matrix.png" alt="Confusion Matrix Plot"></p>
+<h3 id="confusion-matrix-analysis">Confusion Matrix Analysis<a class="anchor" href="#confusion-matrix-analysis">#</a></h3>
+<p>I can see that accuracy is worst on the &lsquo;functional needs repair&rsquo; group as I would expect. This class is under represented in the data and is most likely somewhat ambiguously defined in comparison to the other classifications.</p>
+<h3 id="future-work">Future Work<a class="anchor" href="#future-work">#</a></h3>
+<p>The two most promising directions for further work seem to be:</p>
+<ol>
+<li>Integrating re-sampling into the pipeline to improve accuracy on the &lsquo;functional needs repair&rsquo; class.</li>
+<li>Implementing hierarchical models or stacked models.</li>
+</ol>
+
+
+              
+          </article>
+          
+
+<ul class="tags__list">
+    
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/project/">project</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/classification/">classification</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://sethchart.com/posts/0/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">About Me</span>
+    </a>
+  
+
+  
+    <a class="pagination__item" href="https://sethchart.com/posts/2/">
+      <span class="pagination__label">Next Post</span>
+      <span class="pagination__title" >Demystifying ARMA Models</a>
+    </a>
+  
+</div>
+
+          
+          <footer class="post__footer">
+            
+
+
+<div class="social-icons">
+  
+     
+    
+      <a class="social-icons__link" title="Twitter"
+         href="https://twitter.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/twitter.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="GitHub"
+         href="https://github.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/github.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="Email"
+         href="mailto:seth.chart@protonmail.com"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/email.svg')"></div>
+      </a>
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+      <a class="social-icons__link" title="LinkedIn"
+         href="https://www.linkedin.com/in/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/linkedin.svg')"></div>
+      </a>
+    
+  
+     
+    
+     
+</div>
+
+            <p>Seth Chart© 2021</p>
+          </footer>
+          </div>
+      </div>
+      
+    </div>
+    
+
+  </main>
+
+   
+
+  
+  <script src="/js/index.min.49e4d8a384357d9b445b87371863419937ede9fa77737522ffb633073aebfa44.js" integrity="sha256-SeTYo4Q1fZtEW4c3GGNBmTft6fp3c3Ui/7YzBzrr&#43;kQ=" crossorigin="anonymous"></script>
+  
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js"></script>
+
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"
+    data-autoloader-path="https://unpkg.com/prismjs@1.20.0/components/"></script>
+
+  
+
+
+</body>
+
+</html>

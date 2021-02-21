@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>How I Scraped Job Postings from Careerjet | Seth Chart</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="Building an effective python web scraper for careerjet.com">
+  <meta name="keywords" content="Web Scraping , Data Collection , Project , OOP">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="How I Scraped Job Postings from Careerjet" />
+  <meta name="twitter:description" content="Building an effective python web scraper for careerjet.com"
+  />
+  <meta name="twitter:site" content="@https://twitter.com/sethchart" />
+  <meta name="twitter:creator" content="@https://twitter.com/sethchart" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+
+  
+  
+    
+ 
+  
+  
+  
+  
+  
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/post.min.679ea46872c2b319c5ae942c601a7330924fd57451c89d621d6cb129c870c2a8.css" integrity="sha256-Z56kaHLCsxnFrpQsYBpzMJJP1XRRyJ1iHWyxKchwwqg="/>
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/custom.min.d4f5ff97123043c4601a563af6d280aa37573addb6592364613a791e1cc035d2.css" integrity="sha256-1PX/lxIwQ8RgGlY69tKAqjdXOt22WSNkYTp5HhzANdI="/>
+  
+  
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    { 
+      "@context": "http://schema.org", 
+      "@type": "WebSite", 
+      "url": "https:\/\/sethchart.com\/posts\/3\/",
+      "name": "How I Scraped Job Postings from Careerjet",
+      "author": {
+        "@type": "Person",
+        "name": ""
+      },
+      "description": "Building an effective python web scraper for careerjet.com"
+    }
+  
+  </script>
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+    
+    
+      <li>
+        <a  href="/posts/0">about</a>
+      </li>
+    
+      <li>
+        <a  class="active"
+         href="/posts">blog</a>
+      </li>
+    
+      <li>
+        <a  href="/">home</a>
+      </li>
+    
+      <li>
+        <a  href="/resume-sethchart.pdf">resume</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+    
+
+    <div class="flex-wrapper">
+      <div class="post__container">
+        <div class="post">
+          <header class="post__header">
+            <h1 id="post__title">How I Scraped Job Postings from Careerjet</h1>
+            <time datetime="2021-01-26 08:53:31 -0500 EST" class="post__date"
+            >2021-01-26</time>
+          </header>
+          <article class="post__content">
+              
+<h2 id="what-you-will-learn">What You Will Learn<a class="anchor" href="#what-you-will-learn">#</a></h2>
+<p>Do you want to do some natural language processing on job postings and need data?
+That was my situation about a month ago when I was starting my capstone <a href="https://github.com/sethchart/DataJobs">project</a> for my Data Science bootcamp at Flatiron school.
+I found that <a href="https://careerjet.com">careerjet.com</a> had fairly straightforward web design and over three million job postings in the United States, a great candidate for web scraping! In this post, I will describe my approach to scraping careerjet.com and outline a few approaches that did not workout for me.
+Hopefully, I can jump-start your NLP project on job postings by letting you skip a few of my missteps.</p>
+<h2 id="my-approach">My Approach<a class="anchor" href="#my-approach">#</a></h2>
+<p>After trying a few other approaches I decided to use <a href="https://pypi.org/project/selenium/">Selenium</a> to interact with careerjet.com.
+I found that this gave me access to 10,000 job postings, which was substantially more than other approaches.</p>
+<p>The workflow is simple.</p>
+<ol>
+<li>Open an Chrome browser, load the first page of search results on careerjet.com, then click on the first job listing to load the first job posting.</li>
+<li>Read the job title, url, and job description from the job posting page.</li>
+<li>If the next page button is available, click it to load the next job posting. Otherwise, stop scraping.</li>
+</ol>
+<h2 id="investigating-site-structure">Investigating Site Structure<a class="anchor" href="#investigating-site-structure">#</a></h2>
+<p>In order to implement the scraping workflow, I needed to find a few key elements in the source code of careerjet.com.</p>
+<ol>
+<li>The url for the first job posting in the first page of search results.</li>
+<li>The job title on a job posting page.</li>
+<li>The job description on a job posting page.</li>
+<li>The next button on a job posting page.</li>
+</ol>
+<p>The great thing about careerjet.com as a data source is that all of these elements are easy to access.
+I located all of the elements above using Chrome <a href="https://developers.google.com/web/tools/chrome-devtools">developer tools</a>.
+Below I give a quick example of locating the next button using developer tools. All of the other elements listed above were located in a similar way.</p>
+<h3 id="locating-an-element">Locating an element<a class="anchor" href="#locating-an-element">#</a></h3>
+<p>The trickiest element to access was the next button.
+After, some experimentation I found that is was best to first locate the navigation bar and then locate the next button inside the navigation bar.
+The benefit of this approach is that the navigation bar is present even when the site does not have a next page to serve.
+Locating the navigation bar and then checking for the next button makes it easier to handle the case when no next page is available.</p>
+<p>To locate an element first open developer tools on the page in question (press F12) then activate the selector tool (press Ctrl + Shift + C) and hover over the element you wish to locate.</p>
+<h4 id="locating-the-navigation-bar">Locating the Navigation Bar</h4>
+<p>In the screenshot below you can see that the navigation bar is a <code>section</code> element with the class <code>nav</code>.</p>
+<p><img src="navbar.png" alt="Navigation Bar Screenshot"></p>
+<h4 id="locating-the-next-button">Locating the Next Button</h4>
+<p>In the screenshot below you can see that the next page button is a <code>button</code> element with the class <code>next</code>.</p>
+<p><img src="next_button.png" alt="Next Button Screenshot"></p>
+<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
+<p>To automate the web scraping workflow I decided to design a class that wraps a Selenium web driver and provides methods for each of the steps in the workflow.
+Then, I can simply instantiate a object and use its methods to execute the workflow in a simple script.</p>
+<h3 id="step-1">Step 1<a class="anchor" href="#step-1">#</a></h3>
+<p>The <code>__init__</code> method from our class runs when we instantiate an object. It executes the following actions to achieve the first step of our workflow.</p>
+<ol>
+<li>Open a Chrome browser that is controlled by the Selenium web driver and assign it to the browser attribute.</li>
+<li>Use the open browser to open the careerjet search page with location pre-filled with <code>USA</code> and search pre-filled with <code>data</code>. The pre-filling is achieved by passing the <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> <code>l=USA&amp;s=data</code> at the end of the url.</li>
+<li>Find the first job listing on the search results page. This is achieved by finding the first element on the page with the class <code>job</code>.</li>
+<li>Find the link to the full job posting within the job listing element. Each job listing has one link, which is to the full job posting, so we achieve this by selecting the anchor tag from the job listing element.</li>
+<li>Click on the link using the <code>click</code> method from Selenium.</li>
+</ol>
+<pre><code class="language-python">
+def __init__(self):
+    &quot;&quot;&quot;__init__. Opens a new browser with the first page of creerjet search results.
+    Then, clicks on the first job posting. Once this method has run, the
+    Driver object is ready to scrape the first job listing.
+    &quot;&quot;&quot;
+    self.browser = webdriver.Chrome()
+    self.browser.get('https://www.careerjet.com/search/jobs?l=USA&amp;s=data')
+    first_job_posting = self.browser.find_element_by_class_name('job')
+    first_job_link = first_job_posting.find_element_by_tag_name('a')
+    first_job_link.click()
+</code></pre>
+<h3 id="step-2">Step 2<a class="anchor" href="#step-2">#</a></h3>
+<p>Scraping data from the job posting is handled by the <code>scrape_page</code> method. There are four major actions that occur.</p>
+<ol>
+<li>Use the <code>_get_current_page_soup</code> class method to load the source code of the current job posting page as a BeautifulSoup object.</li>
+<li>Use the <code>_get_title</code> class method to extract the job title from the soup.</li>
+<li>Use the <code>current_url</code> Selenium method to get the url of the current job posting page.</li>
+<li>Use the <code>_get_description</code> method to extract the job description from the soup.</li>
+</ol>
+<pre><code class="language-python">def scrape_page(self):
+    &quot;&quot;&quot;scrape_page. Scrapes the current job posting and returns a
+    dictionary containing job title, job description, and url.
+    &quot;&quot;&quot;
+    soup = self._get_current_page_soup()
+    page_data = {
+        'title': self._get_title(soup),
+        'url': self.browser.current_url,
+        'description': self._get_description(soup)
+    }
+    return page_data
+</code></pre>
+<p>The <code>scrape_page</code> method uses the <code>_get_current_page_soup</code>, <code>_get_title</code>, and <code>_get_description</code> methods, which we display below for the interested reader. Each one wraps some simple actions using BeautifulSoup.</p>
+<pre><code class="language-python">def _get_current_page_soup(self):
+    &quot;&quot;&quot;_get_current_page_soup. Extracts html source code for current job
+    posting and returns BeautifulSoup object for further manipulation.
+    &quot;&quot;&quot;
+    page = self.browser.page_source
+    soup = BeautifulSoup(page, 'html.parser')
+    return soup
+</code></pre>
+<pre><code class="language-python">@staticmethod
+def _get_title(soup):
+    &quot;&quot;&quot;_get_title. Extracts the job title from the current posting.
+
+    Parameters
+    ----------
+    soup : bs4.BeautifulSoup
+        BeautifulSoup object containing the contents of the current job
+        posting page. Takes output from _get_current_page_soup.
+    &quot;&quot;&quot;
+    title = soup.find('h1').text
+    return title
+</code></pre>
+<pre><code class="language-python">@staticmethod
+def _get_description(soup):
+    &quot;&quot;&quot;_get_description. Extracts the description from the current
+    posting.
+
+    Parameters
+    ----------
+    soup : bs4.BeautifulSoup
+        BeautifulSoup object containing the contents of the current job
+        posting page. Takes output from _get_current_page_soup.
+    &quot;&quot;&quot;
+    description = soup.find('section', class_='content').text
+    return description
+</code></pre>
+<h3 id="step-3">Step 3<a class="anchor" href="#step-3">#</a></h3>
+<p>Advancing to the next page is handled by the <code>next_page</code> method which executes the following actions.</p>
+<ol>
+<li>Find the navigation bar.</li>
+<li>Find the next page button within the navigation bar.</li>
+<li>Get the url of the current page.</li>
+<li>Click on the next page button.</li>
+<li>Wait for the url of the current page to change before releasing control of the browser.</li>
+</ol>
+<p>Note that, Step 5 is very important because it ensures that we don&rsquo;t try to run the <code>scrape_page</code> method before the next page has loaded. Without this step, scripts that use this method are likely to error any time that pages load slowly.</p>
+<pre><code class="language-python">def next_page(self):
+    &quot;&quot;&quot;next_page. Advances the browser to the next job posting.
+    &quot;&quot;&quot;
+    nav_bar = self.browser.find_element_by_class_name('nav')
+    next_button = nav_bar.find_element_by_class_name('next')
+    current_url = self.browser.current_url
+    next_button.click()
+    wait = WebDriverWait(self.browser, 10)
+    wait.until(lambda x: x.current_url != current_url)
+</code></pre>
+<h2 id="other-approaches">Other Approaches<a class="anchor" href="#other-approaches">#</a></h2>
+<p>Before I selected the approach above I tried two other approaches for scraping careerjet.</p>
+<ol>
+<li>Using the careerjet API to request job descriptions.</li>
+<li>Using http requests to pull pages without launching a browser.</li>
+</ol>
+<p>The primary issue with Approach 1 was an undocumented rate limit on the API that made scraping more than a few job postings infeasible.
+If you just need to pull a few postings or you can pull postings infrequently, I would recommend trying out the API.
+I ran into issues with the <a href="https://github.com/careerjet/careerjet-api-client-python">official API</a> because I am using Python 3.6, however this <a href="https://github.com/davebulaval/careerjet-api">unofficial fork</a> of the python API was very easy to use.</p>
+<p>My issue with Approach 2 was essentially that I could not figure out how to access more than 2,000 records.
+Very roughly, the approach takes advantage of the fact that careerjet allows the user to specify which page of search results they want through a query parameter in the url.
+I used the <code>requests</code> <a href="https://pypi.org/project/requests/">library</a> to pull each page of results and then used BeautifulSoup to get urls for each job listing on the result page.
+This worked great and was much easier to implement than my final approach, but each page of results has twenty job listings and careerjet only allows access to one hundred pages of search results through the url page parameter, so I was limited to 2,000 job postings.
+For my use case 2,000 postings was not enough data.
+If you are interested in a smaller batch of data, or you have a scheme for combining multiple searches, then I would recommend trying out this approach before resorting to the approach that I have described above.</p>
+<h2 id="conclusion">Conclusion<a class="anchor" href="#conclusion">#</a></h2>
+<p>Web scraping can be tricky, particularly when we need to resort to automating browser interaction to achieve our goals.
+I found that by encapsulating all of my browser interaction in a class, I was able to incorporate this style of web scraping into scripts seamlessly without needing to worry to much about particulars of what was happening in the browser.
+The guiding principal for designing this class was simple.
+I worked through the workflow that I wanted to achieve in the browser manually and built a method for each manual action.</p>
+<p>If you would like to checkout the source code you can find it <a href="https://github.com/sethchart/DataJobs/blob/main/code/careerjet.py">here</a>.</p>
+
+
+              
+          </article>
+          
+
+<ul class="tags__list">
+    
+    
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/project/">project</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/oop/">oop</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://sethchart.com/posts/2/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Demystifying ARMA Models</span>
+    </a>
+  
+
+  
+    <a class="pagination__item" href="https://sethchart.com/posts/4/">
+      <span class="pagination__label">Next Post</span>
+      <span class="pagination__title" >Latent Dirichlet Allocation</a>
+    </a>
+  
+</div>
+
+          
+          <footer class="post__footer">
+            
+
+
+<div class="social-icons">
+  
+     
+    
+      <a class="social-icons__link" title="Twitter"
+         href="https://twitter.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/twitter.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="GitHub"
+         href="https://github.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/github.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="Email"
+         href="mailto:seth.chart@protonmail.com"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/email.svg')"></div>
+      </a>
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+      <a class="social-icons__link" title="LinkedIn"
+         href="https://www.linkedin.com/in/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/linkedin.svg')"></div>
+      </a>
+    
+  
+     
+    
+     
+</div>
+
+            <p>Seth Chart© 2021</p>
+          </footer>
+          </div>
+      </div>
+      
+    </div>
+    
+
+  </main>
+
+   
+
+  
+  <script src="/js/index.min.49e4d8a384357d9b445b87371863419937ede9fa77737522ffb633073aebfa44.js" integrity="sha256-SeTYo4Q1fZtEW4c3GGNBmTft6fp3c3Ui/7YzBzrr&#43;kQ=" crossorigin="anonymous"></script>
+  
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js"></script>
+
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"
+    data-autoloader-path="https://unpkg.com/prismjs@1.20.0/components/"></script>
+
+  
+
+
+</body>
+
+</html>

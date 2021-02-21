@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Collection on Seth Chart</title>
+    <link>https://sethchart.com/tags/data-collection/</link>
+    <description>Recent content in Data Collection on Seth Chart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Seth Chart© {year}</copyright>
+    <lastBuildDate>Tue, 26 Jan 2021 08:53:31 -0500</lastBuildDate>
+    
+	<atom:link href="https://sethchart.com/tags/data-collection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How I Scraped Job Postings from Careerjet</title>
+      <link>https://sethchart.com/posts/3/</link>
+      <pubDate>Tue, 26 Jan 2021 08:53:31 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/3/</guid>
+      <description>What You Will Learn Do you want to do some natural language processing on job postings and need data? That was my situation about a month ago when I was starting my capstone project for my Data Science bootcamp at Flatiron school. I found that careerjet.com had fairly straightforward web design and over three million job postings in the United States, a great candidate for web scraping! In this post, I will describe my approach to scraping careerjet.</description>
+    </item>
+    
+  </channel>
+</rss>

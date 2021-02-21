@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on Seth Chart</title>
+    <link>https://sethchart.com/tags/project/</link>
+    <description>Recent content in Project on Seth Chart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Seth Chart© {year}</copyright>
+    <lastBuildDate>Tue, 26 Jan 2021 08:53:31 -0500</lastBuildDate>
+    
+	<atom:link href="https://sethchart.com/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How I Scraped Job Postings from Careerjet</title>
+      <link>https://sethchart.com/posts/3/</link>
+      <pubDate>Tue, 26 Jan 2021 08:53:31 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/3/</guid>
+      <description>What You Will Learn Do you want to do some natural language processing on job postings and need data? That was my situation about a month ago when I was starting my capstone project for my Data Science bootcamp at Flatiron school. I found that careerjet.com had fairly straightforward web design and over three million job postings in the United States, a great candidate for web scraping! In this post, I will describe my approach to scraping careerjet.</description>
+    </item>
+    
+    <item>
+      <title>Demystifying ARMA Models</title>
+      <link>https://sethchart.com/posts/2/</link>
+      <pubDate>Wed, 23 Dec 2020 17:28:40 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/2/</guid>
+      <description>Last week, I finished a project where I identified the five zip codes, in the city of Baltimore, where an individual would expect the highest return on investment if they bought a house, lived in it for two years and then sold it and moved away. You can check out my GitHub repository for the project here. I used Seasonal AutoRegressive Integrated Moving Average (SARIMA) models to forecast house prices based on historical data that I collected from Zillow.</description>
+    </item>
+    
+    <item>
+      <title>Pump it Up: Data Mining the Water Table</title>
+      <link>https://sethchart.com/posts/1/</link>
+      <pubDate>Fri, 06 Nov 2020 20:52:31 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/1/</guid>
+      <description>Project Description In this post, I will tell you about building my submission to the Pump it Up: Data Mining the Water Table competition hosted by DrivenData. The competition problem uses data about water pumps in Tanzania collected by a partnership between Taarifa and the United Republic of Tanzania Ministry of Water to predict if they are currently in need of repair. Specifically, the goal is to classify a water pump as &amp;lsquo;functional&amp;rsquo;, &amp;lsquo;functional needs repair&amp;rsquo;, or &amp;lsquo;non functional&amp;rsquo; given the available data.</description>
+    </item>
+    
+  </channel>
+</rss>
