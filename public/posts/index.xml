@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Seth Chart© {year}</copyright>
-    <lastBuildDate>Sun, 14 Feb 2021 13:24:44 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 21 Feb 2021 11:39:06 -0500</lastBuildDate>
     
 	<atom:link href="https://sethchart.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Data Cleaning for Latent Dirichlet Analysis</title>
+      <link>https://sethchart.com/posts/draft4/</link>
+      <pubDate>Sun, 21 Feb 2021 11:39:06 -0500</pubDate>
+      
+      <guid>https://sethchart.com/posts/draft4/</guid>
+      <description>Background LDA treats each word in a document as though it was placed there by selecting it at random and independent of all other words in the document. This is clearly not true for almost every document that we will want to analyze.
+Multiple Word Forms One major issue with the independence assumption in LDA comes from the different forms of a word, for example &amp;lsquo;teach&amp;rsquo;, &amp;lsquo;taught&amp;rsquo;, &amp;lsquo;teaching&amp;rsquo;, and &amp;lsquo;teaches&amp;rsquo; are all words that can represent the same essential concept in our text.</description>
+    </item>
     
     <item>
       <title>Latent Dirichlet Allocation</title>
