@@ -4,7 +4,7 @@ date: 2021-02-21T11:39:06-05:00
 slug: ""
 description: "We write a custom tokenizer for scikit-learn's CountVectorizer that implements lemmatization with parts of speach tagging."
 keywords: [NLP, Data Processing, scikit-learn, lemmatization]
-draft: false
+draft: true
 tags: [NLP, Data Processing, DataJobs]
 math: false
 toc: false

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Adding Lemmatization to CountVectorizer Without Making a Mess | Seth Chart</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="">
+  <meta name="keywords" content="scikit-learn , NLTK , Lemmatization , CountVectorizer , Natural Language Processing , NLP , Data Science , Data Cleaning">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Adding Lemmatization to CountVectorizer Without Making a Mess" />
+  <meta name="twitter:description" content=""
+  />
+  <meta name="twitter:site" content="@https://twitter.com/sethchart" />
+  <meta name="twitter:creator" content="@https://twitter.com/sethchart" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+
+  
+  
+    
+ 
+  
+  
+  
+  
+  
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/post.min.679ea46872c2b319c5ae942c601a7330924fd57451c89d621d6cb129c870c2a8.css" integrity="sha256-Z56kaHLCsxnFrpQsYBpzMJJP1XRRyJ1iHWyxKchwwqg="/>
+  
+    
+    <link type="text/css" rel="stylesheet" href="/css/custom.min.d4f5ff97123043c4601a563af6d280aa37573addb6592364613a791e1cc035d2.css" integrity="sha256-1PX/lxIwQ8RgGlY69tKAqjdXOt22WSNkYTp5HhzANdI="/>
+  
+  
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    { 
+      "@context": "http://schema.org", 
+      "@type": "WebSite", 
+      "url": "https:\/\/sethchart.com\/posts\/we-write-a-custom-tokenizer-for-scikit-learns-countvectorizer-that-implements-lemmatization-with-parts-of-speech-tagging.\/",
+      "name": "Adding Lemmatization to CountVectorizer Without Making a Mess",
+      "author": {
+        "@type": "Person",
+        "name": ""
+      },
+      "description": ""
+    }
+  
+  </script>
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+    
+    
+      <li>
+        <a  href="/posts/0">about</a>
+      </li>
+    
+      <li>
+        <a  class="active"
+         href="/posts">blog</a>
+      </li>
+    
+      <li>
+        <a  href="/">home</a>
+      </li>
+    
+      <li>
+        <a  href="/resume-sethchart.pdf">resume</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+    
+
+    <div class="flex-wrapper">
+      <div class="post__container">
+        <div class="post">
+          <header class="post__header">
+            <h1 id="post__title">Adding Lemmatization to CountVectorizer Without Making a Mess</h1>
+            <time datetime="2021-02-21 12:57:33 -0500 EST" class="post__date"
+            >2021-02-21</time>
+          </header>
+          <article class="post__content">
+              
+<h2 id="background">Background<a class="anchor" href="#background">#</a></h2>
+<p>This past week, I have been working on refactoring some of the code for my <a href="https://github.com/sethchart/DataJobs">DataJobs</a> project.
+That project explores the relationship between job descriptions and job titles in the data industry using natural language processing techniques.
+In particular, the DataJobs project uses Latent Dirichlet Allocation to detect topics within job descriptions.
+In this post, I am going to focus on data preprocessing for LDA and how to implement it in an scikit-learn pipeline.</p>
+<h2 id="the-main-problem">The Main Problem<a class="anchor" href="#the-main-problem">#</a></h2>
+<p>For my DataJobs project, I wanted to process documents and convert them to word count vectors, which can then be used as input for LDA.
+<a href="https://scikit-learn.org/stable/index.html">Scikit-learn</a> provides a useful and well documented tool for word count vectorization called <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a>.
+CountVectorizer covered almost all of my preprocessing needs by default, except for lemmatization.</p>
+<p>Lemmatization is the process of replacing each word in a document with the root word that appears at the top of its dictionary definition.
+Linguists call this root word the <em>lemma</em>.
+For example, the lemma of the word &lsquo;taught&rsquo; is &lsquo;teach&rsquo;.</p>
+<p>When I read through the <a href="https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction">feature extraction user guide</a>, I found the following is section 6.2.3.10.</p>
+<blockquote>
+<p>Fancy token-level analysis such as stemming, lemmatizing, compound splitting, filtering based on part-of-speech, etc. are not included in the scikit-learn codebase, but can be added by customizing either the tokenizer or the analyzer. Here’s a CountVectorizer with a tokenizer and lemmatizer using NLTK:</p>
+</blockquote>
+<pre><code class="language-python">from nltk import word_tokenize          
+from nltk.stem import WordNetLemmatizer 
+class LemmaTokenizer:
+    def __init__(self):
+        self.wnl = WordNetLemmatizer()
+    def __call__(self, doc):
+        return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
+
+vect = CountVectorizer(tokenizer=LemmaTokenizer()) 
+</code></pre>
+<blockquote>
+<p>(Note that this will not filter out punctuation.)</p>
+</blockquote>
+<p>The issue here is that I can easily add lemmatization to my CountVectorizer, but if I do, I must also provide my own text cleaning to remove punctuation, lowercase text, and clean-up special characters.</p>
+<h2 id="my-solution">My Solution<a class="anchor" href="#my-solution">#</a></h2>
+<p>Using the code snippet above as a starting point, I decided to build my own tokenizer to implement text cleaning and lemmatization.</p>
+<pre><code class="language-python">class LemmaTokenizer:
+    &quot;&quot;&quot;LemmaTokenizer. Provides text cleaning and lemmatization as a tokenizer
+    for use with CountVectorizer.
+    &quot;&quot;&quot;
+
+    def __init__(self):
+        &quot;&quot;&quot;__init__.
+        &quot;&quot;&quot;
+        self.lemmatizer = WordNetLemmatizer()
+
+    def __call__(self, doc):
+        &quot;&quot;&quot;__call__.
+
+        Parameters
+        ----------
+        doc :
+            doc is a document encoded as a string.
+        &quot;&quot;&quot;
+        return self.doc_lemmatizer(doc)
+
+    def doc_lemmatizer(self, doc: str) -&gt; List[str]:
+        &quot;&quot;&quot;doc_lemmatizer. Lemmatize tagged words from the provided doc.
+
+        Parameters
+        ----------
+        doc : str
+            doc is a document encoded as a string.
+
+        Returns
+        -------
+        List[str]
+
+        &quot;&quot;&quot;
+        doc_tags = self.doc_tagger(doc)
+        lemmatized_doc = [
+            lemma.translate(str.maketrans('', '', string.punctuation)) for
+            sentence_tags in doc_tags for
+            lemma in self.sentence_lemmatizer(sentence_tags) if
+            lemma.translate(str.maketrans('', '', string.punctuation)) != ''
+        ]
+        return lemmatized_doc
+
+    def doc_tagger(self, doc: str) -&gt; List[List[POS_Tag]]:
+        &quot;&quot;&quot;doc_tagger. Takes a document and returns parts of speech tagged
+        tokens organized as a list of sentences each of which is a list of POS
+        tagged words.
+
+        Parameters
+        ----------
+        doc : str
+            doc is a document encoded as a string.
+
+        Returns
+        -------
+        List[List[POS_Tag]]
+
+        &quot;&quot;&quot;
+        pos_tags = [
+            self.sentence_tagger(sentence) for
+            sentence in self.doc_tokenizer(doc)
+        ]
+        return pos_tags
+
+    def sentence_tagger(self, sentence: List[str]) -&gt; List[POS_Tag]:
+        &quot;&quot;&quot;sentence_tagger. Takes a sentence as a list of tokens and
+        returns a list of wordnet POS tagged tokens.
+
+        Parameters
+        ----------
+        sentence : List[str]
+            sentence is a list of word tokens from a sentence.
+
+        Returns
+        -------
+        List[POS_Tag]
+
+        &quot;&quot;&quot;
+        treebank_tags = pos_tag(sentence)
+        wordnet_tags = [
+            (treebank_tag[0], self.get_wordnet_pos(treebank_tag[1]))
+            for treebank_tag in treebank_tags
+        ]
+        return wordnet_tags
+
+    def doc_tokenizer(self, doc: str) -&gt; List[List[str]]:
+        &quot;&quot;&quot;doc_tokenizer. Reads in a raw text document and returns a list of
+        sentences each represented as a list of words. Text is converted to
+        lowercase and newline characters are removed.
+
+        Parameters
+        ----------
+        doc : str
+            doc is a document encoded as a string.
+        Returns
+        -------
+        List[List[str]]
+
+        &quot;&quot;&quot;
+        sentences = sent_tokenize(
+            doc.lower().replace('\\n', '')
+        )
+        doc_tokens = [word_tokenize(sentence) for sentence in sentences]
+        return doc_tokens
+
+    def sentence_lemmatizer(self, sentence_tags: List[POS_Tag]) -&gt; List[str]:
+        &quot;&quot;&quot;sentence_lemmatizer. Takes a POS tagged sentence and returns a list
+        of word lemmas.
+
+        Parameters
+        ----------
+        sentence_tags : List[POS_Tag]
+            sentence_tags is a list of POS tagged tokens that for a sentence.
+
+        Returns
+        -------
+        List[str]
+
+        &quot;&quot;&quot;
+        lemmatized_sentence = [
+            self.lemmatize(pos_tag) for pos_tag in sentence_tags
+        ]
+        return lemmatized_sentence
+
+    @staticmethod
+    def get_wordnet_pos(treebank_tag: POS_Tag) -&gt; str:
+        &quot;&quot;&quot;get_wordnet_pos. Converts a treebank POS tag to a wordnet POS tag.
+
+        Parameters
+        ----------
+        treebank_tag : POS_Tag
+            treebank_tag first position is the token, second position is the
+            treebank POS tag.
+
+        Returns
+        -------
+        str
+        &quot;&quot;&quot;
+        if treebank_tag.startswith('J'):
+            tag = wordnet.ADJ
+        elif treebank_tag.startswith('V'):
+            tag = wordnet.VERB
+        elif treebank_tag.startswith('N'):
+            tag = wordnet.NOUN
+        elif treebank_tag.startswith('R'):
+            tag = wordnet.ADV
+        else:
+            tag = ''
+        return tag
+
+    def lemmatize(self, pos_tag: POS_Tag) -&gt; str:
+        &quot;&quot;&quot;lemmatize. Takes a POS tagged word and returns its lemma.
+
+        Parameters
+        ----------
+        pos_tag : POS_Tag
+            pos_tag first position is a word token, second position is a
+            wordnet POS tag.
+
+        Returns
+        -------
+        str
+        &quot;&quot;&quot;
+        if pos_tag[1] != '':
+            lemmatized_word = self.lemmatizer.lemmatize(pos_tag[0], pos_tag[1])
+        else:
+            lemmatized_word = pos_tag[0]
+        return lemmatized_word
+</code></pre>
+<h2 id="conclusion">Conclusion<a class="anchor" href="#conclusion">#</a></h2>
+<p>This tokenizer implements two major improvements on the example class from the scikit-learn user guide.</p>
+<ol>
+<li>Punctuation is dropped in the doc_lemmatizer function. This happens after lemmatization so that we can take advantage of punctuation to detect sentence structure.</li>
+<li>We use parts of speech tagging to make the lemmatizer more aware of context. For example the word &ldquo;meeting&rdquo; can appear in a sentence as a noun or as a verb. The word &ldquo;meeting&rdquo; is the lemma when &ldquo;meeting&rdquo; is a noun, but &ldquo;meet&rdquo; is the lemma when &ldquo;meeting&rdquo; is a verb. By default WordNetLemmatizer treats every word as a noun.</li>
+</ol>
+
+
+              
+          </article>
+          
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/datajobs/">datajobs</a>
+    </li>
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://sethchart.com/tags/nlp/">nlp</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://sethchart.com/posts/4/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Latent Dirichlet Allocation</span>
+    </a>
+  
+
+  
+</div>
+
+          
+          <footer class="post__footer">
+            
+
+
+<div class="social-icons">
+  
+     
+    
+      <a class="social-icons__link" title="Twitter"
+         href="https://twitter.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/twitter.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="GitHub"
+         href="https://github.com/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/github.svg')"></div>
+      </a>
+    
+  
+     
+    
+      <a class="social-icons__link" title="Email"
+         href="mailto:seth.chart@protonmail.com"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/email.svg')"></div>
+      </a>
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+  
+     
+    
+      <a class="social-icons__link" title="LinkedIn"
+         href="https://www.linkedin.com/in/sethchart"
+         target="_blank" rel="noopener">
+        <div class="social-icons__icon" style="background-image: url('https://sethchart.com/svg/linkedin.svg')"></div>
+      </a>
+    
+  
+     
+    
+     
+</div>
+
+            <p>Seth Chart© 2021</p>
+          </footer>
+          </div>
+      </div>
+      
+    </div>
+    
+
+  </main>
+
+   
+
+  
+  <script src="/js/index.min.49e4d8a384357d9b445b87371863419937ede9fa77737522ffb633073aebfa44.js" integrity="sha256-SeTYo4Q1fZtEW4c3GGNBmTft6fp3c3Ui/7YzBzrr&#43;kQ=" crossorigin="anonymous"></script>
+  
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js"></script>
+
+  
+  <script src="https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"
+    data-autoloader-path="https://unpkg.com/prismjs@1.20.0/components/"></script>
+
+  
+
+
+</body>
+
+</html>

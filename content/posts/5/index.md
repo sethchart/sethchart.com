@@ -1,11 +1,11 @@
 ---
 title: "Adding Lemmatization to CountVectorizer Without Making a Mess"
 date: 2021-02-21T12:57:33-05:00
-slug: ""
+slug: "We write a custom tokenizer for scikit-learns CountVectorizer that implements lemmatization with parts of speech tagging." 
 description: ""
-keywords: []
-draft: true
-tags: []
+keywords: ["scikit-learn", "NLTK", "Lemmatization", "CountVectorizer", "Natural Language Processing", "NLP", "Data Science", "Data Cleaning"]
+draft: false
+tags: ["DataJobs", "Data Cleaning", "NLP"]
 math: false
 toc: false
 ---
@@ -222,6 +222,6 @@ class LemmaTokenizer:
 
 ## Conclusion
 
-This toeknizer implements two major immprovements on the example class from the scikit-learn user guide.
-1. Punctuation is dropped in the doc_lemmatiser function. This happens after lemmatization so that we can take advantage of punctuation to detect sentence structure.
-2. We use parts of speach tagging to make the lemmatizer more aware of context. For example the word "meeting" can appear in a sentence as a noun or as a verb. The word "meeting" is the lemma when "meeting" is a noun, but "meet" is the lemma when "meeting" is a verb. By default WordNetLemmatizer treats every word as a noun. 
+This tokenizer implements two major improvements on the example class from the scikit-learn user guide.
+1. Punctuation is dropped in the doc_lemmatizer function. This happens after lemmatization so that we can take advantage of punctuation to detect sentence structure.
+2. We use parts of speech tagging to make the lemmatizer more aware of context. For example the word "meeting" can appear in a sentence as a noun or as a verb. The word "meeting" is the lemma when "meeting" is a noun, but "meet" is the lemma when "meeting" is a verb. By default WordNetLemmatizer treats every word as a noun. 
