@@ -18,7 +18,7 @@
       <pubDate>Sun, 21 Feb 2021 12:57:33 -0500</pubDate>
       
       <guid>https://sethchart.com/posts/5/</guid>
-      <description>Background This past week, I have been working on refactoring some of the code for my DataJobs project. That project explores the relationship between job descriptions and job titles in the data industry using natural language processing techniques. In particular, the DataJobs project uses Latent Dirichlet Allocation to detect topics within job descriptions. In this post, I am going to focus on data preprocessing for LDA and how to implement it in an scikit-learn pipeline.</description>
+      <description>Background This past week, I have been working on refactoring some of the code for my DataJobs project. That project explores the relationship between job descriptions and job titles in the data industry using natural language processing techniques. In particular, the DataJobs project uses Latent Dirichlet Allocation to detect topics within job descriptions. In this post, I am going to focus on data preprocessing for LDA and how to implement it in a scikit-learn pipeline.</description>
     </item>
     
     <item>

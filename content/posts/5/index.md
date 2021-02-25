@@ -9,13 +9,13 @@ tags: ["DataJobs", "Data Cleaning", "NLP"]
 math: false
 toc: false
 ---
-
+![Choose Your Words](brett-jordan-POMpXtcVYHo-unsplash.jpg)
 ## Background
 
 This past week, I have been working on refactoring some of the code for my [DataJobs](https://github.com/sethchart/DataJobs) project. 
 That project explores the relationship between job descriptions and job titles in the data industry using natural language processing techniques.
 In particular, the DataJobs project uses Latent Dirichlet Allocation to detect topics within job descriptions. 
-In this post, I am going to focus on data preprocessing for LDA and how to implement it in an scikit-learn pipeline.
+In this post, I am going to focus on data preprocessing for LDA and how to implement it in a scikit-learn pipeline.
 
 ## The Main Problem
 
@@ -225,3 +225,7 @@ class LemmaTokenizer:
 This tokenizer implements two major improvements on the example class from the scikit-learn user guide.
 1. Punctuation is dropped in the doc_lemmatizer function. This happens after lemmatization so that we can take advantage of punctuation to detect sentence structure.
 2. We use parts of speech tagging to make the lemmatizer more aware of context. For example the word "meeting" can appear in a sentence as a noun or as a verb. The word "meeting" is the lemma when "meeting" is a noun, but "meet" is the lemma when "meeting" is a verb. By default WordNetLemmatizer treats every word as a noun. 
+
+## Acknowledgements
+
+<span>Photo by <a href="https://unsplash.com/@brett_jordan?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Brett Jordan</a> on <a href="https://unsplash.com/s/photos/words?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
