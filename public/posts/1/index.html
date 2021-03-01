@@ -170,7 +170,7 @@ from sklearn.metrics import plot_confusion_matrix
 <pre><code class="language-python">drop_cols = []
 </code></pre>
 <h4 id="import-data">Import Data</h4>
-<p>Because of the submission format requirements for the competition, it is vital that I retain the index column through out modeling so that I are able to produce predictions that can be validated using the competition&rsquo;s validation data.</p>
+<p>Because of the submission format requirements for the competition, it is vital that I retain the index column through out modeling so that I am able to produce predictions that can be validated using the competition&rsquo;s validation data.</p>
 <pre><code class="language-python">features = pd.read_csv(
     filepath_or_buffer='../data/training_features.csv', 
     index_col='id'
