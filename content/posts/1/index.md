@@ -88,7 +88,7 @@ drop_cols = []
 ```
 
 #### Import Data
-Because of the submission format requirements for the competition, it is vital that I retain the index column through out modeling so that I are able to produce predictions that can be validated using the competition's validation data.
+Because of the submission format requirements for the competition, it is vital that I retain the index column through out modeling so that I am able to produce predictions that can be validated using the competition's validation data.
 
 
 ```python
