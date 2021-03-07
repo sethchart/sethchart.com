@@ -7,24 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Seth Chart© {year}</copyright>
-    <lastBuildDate>Thu, 25 Feb 2021 17:48:18 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 07 Mar 2021 11:37:13 -0500</lastBuildDate>
     
 	<atom:link href="https://sethchart.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Data Science</title>
-      <link>https://sethchart.com/tags/data-science/</link>
-      <pubDate>Thu, 25 Feb 2021 17:48:18 -0500</pubDate>
-      
-      <guid>https://sethchart.com/tags/data-science/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Docker</title>
       <link>https://sethchart.com/tags/docker/</link>
-      <pubDate>Thu, 25 Feb 2021 17:48:18 -0500</pubDate>
+      <pubDate>Sun, 07 Mar 2021 11:37:13 -0500</pubDate>
       
       <guid>https://sethchart.com/tags/docker/</guid>
       <description></description>
@@ -33,7 +24,7 @@
     <item>
       <title>Jupyter</title>
       <link>https://sethchart.com/tags/jupyter/</link>
-      <pubDate>Thu, 25 Feb 2021 17:48:18 -0500</pubDate>
+      <pubDate>Sun, 07 Mar 2021 11:37:13 -0500</pubDate>
       
       <guid>https://sethchart.com/tags/jupyter/</guid>
       <description></description>
@@ -108,6 +99,15 @@
       <pubDate>Wed, 23 Dec 2020 17:28:40 -0500</pubDate>
       
       <guid>https://sethchart.com/tags/arma-models/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Science</title>
+      <link>https://sethchart.com/tags/data-science/</link>
+      <pubDate>Wed, 23 Dec 2020 17:28:40 -0500</pubDate>
+      
+      <guid>https://sethchart.com/tags/data-science/</guid>
       <description></description>
     </item>
     
