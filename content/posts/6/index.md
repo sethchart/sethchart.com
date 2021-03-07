@@ -1,8 +1,8 @@
 ---
-title: "Index"
+title: "How to use Use Jupyter Notebook in a Docker Container."
 date: 2021-03-07T11:37:13-05:00
 slug: ""
-description: "How to use Use Jupyter Notebook in a Docker Container."
+description: "A short tutorial on using Jupyter notebook server in a docker container for Data Science."
 keywords: ["Docker", "Jupyter"]
 draft: false 
 tags: ["Docker", "Jupyter"]
@@ -64,7 +64,7 @@ Docker commands can get pretty long.
 ```
 docker create \
 --name notebook-server \
--p `8888`:`8888` \
+-p 8888:8888 \
 -v ${PWD}:/home/jovyan/work \
 jupyter/scipy-notebook
 ```
@@ -80,6 +80,7 @@ As you can see, I used the option below to name my container notebook-server.
 
 ```
 --name notebook-server
+```
 
 ### Mapping the Notebook Server Port
 
