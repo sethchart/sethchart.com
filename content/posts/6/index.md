@@ -9,6 +9,7 @@ tags: ["Docker", "Jupyter"]
 math: false
 toc: false
 ---
+![Docker Logo](https://www.docker.com/sites/default/files/d8/2019-07/Moby-logo.png)
 
 ## What You Will Learn
 
