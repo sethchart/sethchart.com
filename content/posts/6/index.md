@@ -25,3 +25,18 @@ To follow along with this blog post you will need to install Docker on your comp
 Here are the official instructions about how to [get Docker](https://docs.docker.com/get-docker/).
 We are going to use the command line to set up our container, so open up your terminal.
 To verify that you have docker installed properly, type the command below into your terminal and hit enter.
+```
+docker --version
+```
+
+You should get output that looks something like the line below.
+
+```
+Docker version 20.10.3, build 48d30b5
+```
+
+## Selecting an Image
+
+Once you have Docker installed on your computer, you will need to decide which Jupyter image will fit your needs best.
+Check out the guide to [selecting an image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html) for more information.
+I am going to use the `jupyter/scipy-notebook` image for this post.
