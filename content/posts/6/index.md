@@ -4,7 +4,7 @@ date: 2021-03-07T11:37:13-05:00
 slug: ""
 description: "How to use Use Jupyter Notebook in a Docker Container."
 keywords: ["Docker", "Jupyter"]
-draft: true
+draft: false 
 tags: ["Docker", "Jupyter"]
 math: false
 toc: false
@@ -127,7 +127,7 @@ Finally, we need to tell `docker create` which image to use for our container, s
 jupyter/scipy-notebook
 ```
 
-### Starting the Container
+## Starting the Container
 
 
 Once we have created the container, we still need to start it with the `docker start` command.
@@ -137,4 +137,87 @@ We need to tell `docker start` the name of the container that we want to start, 
 docker start notebook-server
 ```
 
+## Accessing your Server
 
+Now we have a Jupyter notebook server running in a container on our computer and we are just about ready to start working.
+We just need the link to access the notebook sever.
+
+### Getting the Jupyter Notebook Server URL with Token
+
+When we started the container, docker ran the command `jupyter notebook` just like we would if we were running a notebook sever on our computer. We need the link that gets printed after we run Jupyter notebook. For example:
+
+```
+ To access the notebook, open this file in a browser:
+        file:///home/jovyan/.local/share/jupyter/runtime/nbserver-7-open.html
+    Or copy and paste one of these URLs:
+        http://0403b2a54618:8888/?token=45b0e20e05d6cac47a56b91df83d8aa511dc9a82c1245582
+     or http://127.0.0.1:8888/?token=45b0e20e05d6cac47a56b91df83d8aa511dc9a82c1245582
+```
+
+To see what was printed inside the container, we need to look at the docker logs.
+We can do this by running the folioing command from our terminal.
+
+```
+docker logs -n 5 notebook-server
+```
+
+That will print the last five lines of output from the terminal inside our docker container.
+After you run this command you should see the link to your notebook server.
+Just paste that link into your browser like you normally would, and your notebook server should load up as usual.
+
+Note that if you decided to do something fancy with port mapping, you may need to modify the port in the link before your notebook server will work.
+
+## Working with a Container Terminal
+
+Sometimes, you need to run a command in the terminal while you are working on a project.
+The issue is that your notebook server is running in a container and your regular terminal is talking to your computer.
+If you want to run commands inside the container, you have two options.
+
+### From the Command Line
+
+#### Open Terminal
+
+If we want to connect our computers terminal to our container we can use the command below.
+
+```
+docker exec -it notebook-server bash
+```
+
+This command tells docker to start an interactive session and execute the command `bash` to start a terminal inside our container.
+Now anything that we type in the terminal executes inside our container.
+
+### Close Terminal
+
+If you are done with your container terminal, you can close the connection that you created above by typing `Ctrl+p Ctrl+q`.
+Now you are back in your regular terminal talking to your computer.
+
+## From Jupyter Notebook
+
+Another way to access a terminal inside your container is to go to the Jupyter notebook homepage and use the `New` drop-down menu to open a terminal.
+Since the notebook server is running inside the container, this terminal is automatically connected to the container.
+
+## Stopping your Container
+
+If you want to stop your container, you can use the command below.
+
+```
+docker stop notebook-server
+```
+
+The container is no longer running but any changes you made to the container are saved.
+
+### Restarting your Container
+
+If you have stopped the container and want to restart it, the instructions are the same as starting for the first time.
+
+## Removing your Container
+
+If you are done with your container and want to reclaim the space on your hard drive, stop the container and then use the command below to remove it.
+
+```
+docker rm notebook-server
+```
+
+## Conclusion
+
+In this post we covered all of the basic Docker operations that I have consistently needed for working with Jupyter notebooks in a Docker container.
