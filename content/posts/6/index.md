@@ -40,3 +40,10 @@ Docker version 20.10.3, build 48d30b5
 Once you have Docker installed on your computer, you will need to decide which Jupyter image will fit your needs best.
 Check out the guide to [selecting an image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html) for more information.
 I am going to use the `jupyter/scipy-notebook` image for this post.
+
+## Pulling the Image
+
+A docker image is a file with all of the information that you need to create a Docker container.
+Before we can set up our container, we need to download the image that we chose in the Selecting an Image section.
+The `docker pull` command is used to download Docker images.
+The line below will download the latest version of the `jupyter/scipy-notebook` image from [Docker Hub](https://hub.docker.com/r/jupyter/scipy-notebook/tags/?page=1&ordering=last_updated).
